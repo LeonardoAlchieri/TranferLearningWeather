@@ -1,0 +1,36 @@
+preparation:
+  input_path: "./data.nosync/georeferenced_wind_extremewearge_2004.h5"
+  around: 20
+  output_path: "./data.nosync/"
+  cyclon: False
+
+preprocess:
+  input_path : "./data.nosync/climo_2004.h5"
+  vars_to_use:
+    - 9
+    - 10
+    - 11
+  output: './data.nosync/georeferenced_wind_extremewearge_2004.h5'
+
+classifier:
+  data_paths:
+    - "./data.nosync/train_pos.h5"
+    - "./data.nosync/train_neg.h5"
+  vars_to_train:
+    - 9
+    - 10
+    - 11
+  epochs: 50
+  memory_efficient: False
+  slicing: 4
+  output_name: "trained_models/model_just_850_4_final"
+  make_plot: True
+  image_output: "./images/train_model_4_final.pdf"
+
+geo_localize:
+  input_path: "./data.nosync/georeferenced_wind_extremewearge_2005.h5"
+  box_size: 120
+  output_path: "./data.nosync/georeferenced_pos.h5"
+  iterations: 'All'
+  verbose_selection: 0
+  # cyclon: True
